@@ -60,8 +60,8 @@ nav:
   - authentication.md
   - troubleshooting.md
   - capabilities.md
-  - remote-execution.md
   - architecture.md
+  - ios-signing.md
   - Reference:
       - server-args.md
       - ios-signing.md

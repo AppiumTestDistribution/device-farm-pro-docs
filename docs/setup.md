@@ -47,6 +47,10 @@ npm install -g farm-orchestrator
 npm install -g farm-runner
 ```
 
+<div style="text-align: center">
+  <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/remote.jpg" class="center"/>
+</div>
+
 ## Start the Hub
 
 Set up your database and start the orchestrator:

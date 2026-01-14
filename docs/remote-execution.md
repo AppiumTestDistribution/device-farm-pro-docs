@@ -5,7 +5,7 @@ hide:
 ---
 
 <div style="text-align: center">
-  <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/docs/assets/images/remote.jpg" class="center"/>
+  <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/remote.jpg" class="center"/>
 </div>
 
 ### HUB

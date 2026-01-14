@@ -7,7 +7,7 @@ This section covers the authentication and device management features of Appium 
 - Device access is controlled through user roles and team assignments
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/login-screen.png" alt="Login Screen" style="width: 80%; max-width: 1200px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/login-screen.png" alt="Login Screen" style="width: 80%; max-width: 1200px;">
 </div>
 
 ## Default Credentials
@@ -27,7 +27,7 @@ If not set, the default credentials are:
     It's highly recommended to change the default credentials after your first login.
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/reset-password.png" alt="Reset Password" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/reset-password.png" alt="Reset Password" style="width: 70%; max-width: 1400px;">
 </div>
 
 ## User Roles
@@ -42,10 +42,10 @@ The device farm supports two user roles:
 - Generate and manage API tokens
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/users.png" alt="User Management" style="width: 0%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/users.png" alt="User Management" style="width: 0%; max-width: 1400px;">
 </div>
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/teams.png" alt="Team Management" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/teams.png" alt="Team Management" style="width: 70%; max-width: 1400px;">
 </div>
 
 ### User
@@ -55,17 +55,12 @@ The device farm supports two user roles:
 - Change their password
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/menu-items.png" alt="Menu Items" style="width: 70%; max-width: 900px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/menu-items.png" alt="Menu Items" style="width: 70%; max-width: 900px;">
 </div>
 
 ## Node Authentication
 
 When connecting a node to an authenticated hub, you need to provide authentication credentials:
-```
-
-<div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/servers.png" alt="Servers Management" style="width: 90%; max-width: 1400px;">
-</div>
 
 ### Getting Access Key and Token
 
@@ -79,10 +74,10 @@ When connecting a node to an authenticated hub, you need to provide authenticati
 The access key will be displayed above the API tokens table. Use both the access key and token when registering nodes.
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/api-token.png" alt="API Token Management" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/api-token.png" alt="API Token Management" style="width: 70%; max-width: 1400px;">
 </div>
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/api-token-generate.png" alt="Generate API Token" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/api-token-generate.png" alt="Generate API Token" style="width: 70%; max-width: 1400px;">
 </div>
 
 ## Automation Authentication
@@ -119,10 +114,10 @@ Admin users can:
 - Assign devices to teams
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/device-management.png" alt="Device Management" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/device-management.png" alt="Device Management" style="width: 70%; max-width: 1400px;">
 </div>
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/device-management-2.png" alt="Device Management Details" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/device-management-2.png" alt="Device Management Details" style="width: 70%; max-width: 1400px;">
 </div>
 
 ### Device Persistence
@@ -142,14 +137,14 @@ Device information is persisted in the database, including:
 - Maintenance flags prevent device access during maintenance
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/manage-team-device.png" alt="Manage Team Devices" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/manage-team-device.png" alt="Manage Team Devices" style="width: 70%; max-width: 1400px;">
 </div>
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/manage-team-user-1.png" alt="Manage Team Users 1" style="width: 70%; max-width: 1400px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/manage-team-user-1.png" alt="Manage Team Users 1" style="width: 70%; max-width: 1400px;">
 </div>
 
 <div style="display: flex; justify-content: center; margin: 20px 0;">
-    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/appium-device-farm/main/documentation/docs/assets/images/authentication/manage-team-user-2.png" alt="Manage Team Users 2" style="width: 80%; max-width: 1000px;">
+    <img src="https://raw.githubusercontent.com/AppiumTestDistribution/device-farm-pro-docs/refs/heads/main/docs/assets/images/authentication/manage-team-user-2.png" alt="Manage Team Users 2" style="width: 80%; max-width: 1000px;">
 </div>
 
 ## Best Practices
