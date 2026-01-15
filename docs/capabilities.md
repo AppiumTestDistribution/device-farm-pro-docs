@@ -5,7 +5,6 @@ title: Capabilities
 | Capability Name              | Description                                                                                                                                                                                                                                                        |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | df:build                     | Allocate a build name in dashboard. Default value is `null`.                                                                                                                                                                                                       |
-| df:liveVideo                 | Enable live video for the session. Default value is `true`.                                                                                                                                                                                                        |
 | df:recordVideo               | Enable video recording for the session. Default value is `false`.                                                                                                                                                                                                  |
 | df:videoTimeLimit            | Maximum duration of the video recording in seconds. Default value is 1800 seconds (3 minutes).                                                                                                                                                                     |
 | df:iPhoneOnly                | Allocate only iPhone simulators for execution when to true. Default value is `false`.                                                                                                                                                                              |
@@ -19,7 +18,7 @@ title: Capabilities
 | df:maxSDK                    | This capability is used to filter devices/simulators based on SDK. Devices/Simulators with SDK less then or equal to maxSDK would only be considered for test run. `df:maxSDK` is optional argument. ex: `'appium:maxSDK': 15`                                     |
 | df:filterByHost              | This capability is used to filter devices/simulators based on node IP. This will only consider devices from specific node. `df:options` is optional argument. ex: `'filterByHost': '192.168.0.226',`                                                               |
 | df:options                   | Set all device farm related capabilities as object. `df:options` is optional argument. ex: `'df:options': { filterByHost: '192.168.0.226', recordVideo: true },`                                                                                                   |
-| df:saveDeviceLogs            | Save device logs, app profiling for android. `df:options` is optional argument. ex: `'df:options': { saveDeviceLogs: true },`. Default value is `false`                                                                                                            |
+| df:deviceLogs                | Enable device logs capture (Android ADB logcat). For automation sessions only. Manual sessions do not capture device logs. Default value is `false`. ex: `'df:options': { deviceLogs: true },`                                                                     |
 | df:tags                      | Will consider the devices only with the tagged specified. `df:tags` is optional argument. ex: `'df:tags': ['team1','AndroidGroup'],`. Default value is empty array.                                                                                                |
 | df:androidCleanUpApps        | List of Android packages to uninstall before session starts. Can be used in `df:options`. Overrides server configuration if provided. ex: `'df:options': { androidCleanUpApps: ['com.example.app'] }`                                                              |
 | df:iosCleanUpApps            | List of iOS bundle IDs to uninstall before session starts. Can be used in `df:options`. Overrides server configuration if provided. ex: `'df:options': { iosCleanUpApps: ['com.example.app'] }`                                                                    |
@@ -110,7 +109,6 @@ If `androidCleanUpApps` or `iosCleanUpApps` are provided in `df:options` (sessio
     | `recordVideo`         | boolean | `false` | Enable video recording of the session. |
     | `videoResolution`     | string  | -       | Video resolution (e.g., `'1280x720'`). |
     | `videoTimeLimit`      | number  | -       | Maximum video duration in seconds.     |
-    | `liveVideo`           | boolean | `false` | Enable MJPEG live video streaming.     |
     | `screenshotOnFailure` | boolean | `false` | Capture screenshot on command failure. |
     | `screenshotOnAll`     | boolean | `false` | Capture screenshot on every command.   |
 
@@ -128,7 +126,7 @@ If `androidCleanUpApps` or `iosCleanUpApps` are provided in `df:options` (sessio
 
     #### 🍎 iOS Specific & Logs
 
-    | Field            | Type    | Default | Description                                               |
-    | :--------------- | :------ | :------ | :-------------------------------------------------------- |
-    | `wdaId`          | string  | -       | Specific WebDriverAgent IPA ID to use (iOS real devices). |
-    | `saveDeviceLogs` | boolean | `true`  | Save device logs (logcat/syslog) for session.             |
+    | Field         | Type    | Default | Description                                                                       |
+    | :------------ | :------ | :------ | :-------------------------------------------------------------------------------- |
+    | `wdaId`       | string  | -       | Specific WebDriverAgent IPA ID to use (iOS real devices).                        |
+    | `deviceLogs`  | boolean | `false` | Enable device logs capture (Android ADB logcat). For automation sessions only.   |
