@@ -55,14 +55,31 @@ extra_css:
   - assets/stylesheets/extra.css
 nav:
   - index.md
-  - setup.md
-  - configuration.md
-  - authentication.md
+  - Setup:
+    - Hub Setup: hub-setup.md
+    - Node Setup: node-setup.md
+    - Test Integration: test-integration.md
+  - Configuration:
+    - Hub Configuration: hub-configuration.md
+    - Node Configuration: node-configuration.md
+  - Authentication:
+    - User Authentication: user-authentication.md
+    - Node Authentication: node-authentication.md
+    - Automation Authentication: automation-authentication.md
+    - Device Management: device-management.md
+    - Best Practices: authentication-best-practices.md
   - troubleshooting.md
   - capabilities.md
   - architecture.md
-  - ios-signing.md
+  - iOS Signing:
+    - Device Farm Managed WDA: device-farm-managed-wda.md
+    - Manual WDA Setup: manual-wda-setup.md
+    - Downloading WDA: downloading-wda.md
+    - Creating Provisioning Profile: creating-provisioning-profile.md
+    - Resigning WDA: resigning-wda.md
+    - tvOS WDA Preparation: tvos-wda-preparation.md
+    - Uploading WDA: uploading-wda.md
+    - Building from Source: building-wda-from-source.md
   - Reference:
       - server-args.md
-      - ios-signing.md
       - reference/commands/sample.md

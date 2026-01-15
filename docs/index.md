@@ -10,7 +10,55 @@ hide:
   <img src="assets/images/DeviceFarm-Logo.jpg" class="center" width="200"/>
 </div>
 
-This is an Appium plugin designed to manage and create driver sessions on connected Android devices, iOS simulators, and tvOS devices.
+## :material-swap-horizontal: Architecture Evolution: Plugin vs Orchestrator/Runner
+
+This project evolved from [appium-device-farm](https://github.com/AppiumTestDistribution/appium-device-farm) (Appium plugin) to a distributed **Hub-Node architecture** for enterprise scalability. Here's how they compare:
+
+### Quick Comparison
+
+| Aspect | Plugin (appium-device-farm) | Orchestrator/Runner (This Project) |
+|--------|---------------------------|-----------------------------------|
+| **Architecture** | Monolithic Appium plugin | Distributed Hub-Node system |
+| **Installation** | `appium plugin install device-farm` | Hub + Node services + PostgreSQL |
+| **Communication** | HTTP polling | WebSocket (persistent, faster) |
+| **Codebase** | Monorepo (cluttered) | Clean separation (3 packages) |
+| **Scalability** | Supports multiple nodes | Optimized for 10-500+ devices |
+| **High Availability** | ❌ Single point of failure | ✅ Node failures don't affect Hub |
+| **Database** | LokiJS + Prisma/SQLite (in-memory/file) | PostgreSQL (multi-node concurrency) |
+| **Deployment Updates** | Requires Appium restart | Hub & Nodes update independently |
+| **Fault Isolation** | Crash affects all devices | Crash affects only that node's devices |
+| **Use Case** | Small teams, CI/CD | Production farms, enterprises |
+| **Observability** | Limited (mixed Appium logs) | OpenTelemetry (traces, metrics, logs) |
+
+### Why We Moved to Hub-Node
+
+**The plugin worked great** for small setups, but enterprises hit these walls:
+
+| Limitation | Impact | Solution in Hub-Node |
+|------------|--------|---------------------|
+| **Single Process** | Appium crash = all devices down | Independent nodes, isolated failures |
+| **HTTP Communication** | Slower request/response, poor error recovery | WebSocket (faster, persistent, auto-reconnect) |
+| **Cluttered Codebase** | Hard to maintain, plugin+dashboard+devices in one repo | Clean separation: Hub, Node, Frontend packages |
+| **Tight Coupling** | Can't update without interrupting tests | Hub and nodes deploy independently |
+| **LokiJS + Prisma** | In-memory/file-based, no true multi-node support | PostgreSQL with row-level locking |
+
+### Which Should You Use?
+
+=== "Use Plugin If..."
+    - Managing **< 10 devices**
+    - Single developer or small team
+    - Simple CI/CD setup
+    - Don't need high availability
+    - Want minimal setup complexity
+
+=== "Use Hub-Node If..."
+    - Managing **10+ devices**
+    - Enterprise/production environment
+    - Need **99.9% uptime**
+    - Devices across multiple locations
+    - Require scalability and fault tolerance
+
+---
 
 :octicons-heart-fill-24:{ .heart } **Why Appium Device Farm?**
 
