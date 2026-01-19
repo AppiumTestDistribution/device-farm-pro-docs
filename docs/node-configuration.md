@@ -34,12 +34,6 @@ The Node manages the devices. It auto-detects connected USB devices.
     "intervalMs": 60000
   },
 
-  "sessionIdleDetection": {
-    "enabled": true,
-    "idleTimeoutMs": 300000,
-    "checkIntervalMs": 60000
-  },
-
   "androidCleanUpApps": ["com.example.test"],
   "iosCleanUpApps": ["com.example.test"],
   "wdaResignedIpaPath": "/path/to/signed-wda.ipa"
@@ -80,38 +74,45 @@ Device Reconciliation is a periodic background process that ensures device state
 - Handles edge cases like unauthorized devices or physical disconnections
 - Automatically recovers from node crashes or restarts
 
-## Session Idle Detection
+## Session Idle Detection (Manual Sessions)
 
-Session idle detection automatically terminates sessions that have been inactive for a configured period. This prevents resource waste from abandoned or forgotten test sessions.
+For **manual/interactive sessions** accessed through the dashboard UI, Device Farm uses a frontend-driven idle detection system. This ensures accurate detection of user activity while preventing false timeouts.
 
 **How It Works:**
 
-1. **Activity Tracking**: The node tracks the last command timestamp for each active session
-2. **Periodic Checks**: Every 60 seconds (configurable), the node scans all sessions for inactivity
-3. **Idle Detection**: If a session hasn't received any commands for longer than the timeout, it's marked as idle
-4. **Automatic Cleanup**: Idle sessions are automatically terminated with full cleanup (app uninstall, video upload, device release)
+1. **Frontend Activity Tracking**: The browser tracks actual user activity (mouse movements, keyboard input, touch events, scrolling)
+2. **Heartbeat Mechanism**: The frontend sends periodic heartbeats (every 30 seconds) to the hub to indicate the session is still active
+3. **Idle Warning**: When no activity is detected for a configurable period, a warning modal appears with a countdown
+4. **User Can Continue**: Users can click "Continue Session" to reset the timer and keep working
+5. **Automatic Cleanup**: If the user doesn't respond, the session is terminated with full cleanup
 
-**Configuration Options:**
+**Browser Disconnect Handling:**
 
-| Field             | Type    | Default  | Description                                       |
-| :---------------- | :------ | :------- | :------------------------------------------------ |
-| `enabled`         | boolean | `true`   | Enable/disable idle session detection             |
-| `idleTimeoutMs`   | number  | `300000` | Maximum idle time before termination (5 minutes)  |
-| `checkIntervalMs` | number  | `60000`  | How often to check for idle sessions (60 seconds) |
+- When the browser tab/window is closed, a disconnect signal is immediately sent to the hub
+- The hub terminates the session and releases the device without waiting for timeouts
+- This uses the `sendBeacon` API for reliable delivery during page unload
 
-**When It's Needed:**
+**Hub Safety Net:**
 
-- **CI/CD Pipelines**: Terminates sessions if a test suite crashes or hangs without properly closing the session
-- **Manual Testing**: Automatically cleans up when testers forget to end their session or close the browser unexpectedly
-- **Network Issues**: Handles cases where client loses connection but session remains active on the node
-- **Resource Management**: Prevents devices from being locked indefinitely by stale sessions in shared environments
-- **Cost Optimization**: In cloud/paid device farms, reduces unnecessary device usage time
+The hub has an orphaned session cleanup cron job as a safety net. If heartbeats stop (e.g., browser crashes, network failure), the hub will automatically clean up orphaned sessions after 5 minutes.
 
-**When to Adjust:**
+**Default Timeouts:**
 
-- **Shorter timeout (2-3 minutes)**: High-demand environments where devices need quick turnover
-- **Longer timeout (10-15 minutes)**: Manual testing sessions where testers need time to analyze results between commands
-- **Disable (`enabled: false`)**: Only in development environments where you want full control over session lifecycle
+| Component | Default | Description |
+| :-------- | :------ | :---------- |
+| Frontend idle timeout | 5 minutes | Time before idle warning appears |
+| Warning countdown | 30 seconds | Time user has to click "Continue Session" |
+| Heartbeat interval | 30 seconds | How often frontend sends heartbeats |
+| Hub orphan threshold | 5 minutes | Safety net cleanup for sessions without heartbeats |
+
+**What Sessions Are Affected?**
+
+- ✅ **Manual Sessions**: Dashboard UI live device control sessions
+- ❌ **Automation Sessions**: Regular WebDriver/Appium test scripts are NOT affected. They manage their own lifecycle through Appium's `newCommandTimeout` capability
+
+:::note
+The node-side `sessionIdleDetection` configuration has been deprecated. Idle detection is now handled by the frontend and hub for more accurate activity tracking.
+:::
 
 ## App Cleanup Configuration
 

@@ -451,33 +451,34 @@ These settings are designed to offer flexibility, allowing testers to tailor the
 
 **This feature applies only to manual/interactive sessions accessed through the dashboard UI, not automation sessions.**
 
-By default, if there is no activity on a **manual session** for more than **300 seconds (5 minutes)**, the device allocated to the respective session will be unblocked and made available for new session requests. This prevents devices from being locked indefinitely when users walk away from interactive sessions.
+By default, if there is no activity on a **manual session** for more than **5 minutes**, the device allocated to the respective session will be unblocked and made available for new session requests. This prevents devices from being locked indefinitely when users walk away from interactive sessions.
 
-You can customize this timeout by configuring the `sessionIdleDetection` settings in your `node.config.json`:
+**How Idle Detection Works:**
 
-```json
-{
-  "sessionIdleDetection": {
-    "enabled": true,
-    "idleTimeoutMs": 100000,      // 100 seconds
-    "checkIntervalMs": 30000      // Check every 30 seconds
-  }
-}
-```
+Device Farm uses a frontend-driven idle detection system that tracks actual user activity:
 
-Or via environment variables:
+1. **Activity Tracking**: The browser monitors mouse movements, keyboard input, touch events, and scrolling
+2. **Heartbeats**: The frontend sends heartbeats every 30 seconds to indicate the session is active
+3. **Warning Modal**: When idle time reaches the threshold, a warning modal appears with a 30-second countdown
+4. **Continue Option**: Users can click "Continue Session" to reset the timer and keep working
+5. **Auto-Cleanup**: If no response, the session is terminated and the device is released
 
-```bash
-SESSION_IDLE_DETECTION_ENABLED=true
-SESSION_IDLE_TIMEOUT_MS=100000              # 100 seconds
-SESSION_IDLE_CHECK_INTERVAL_MS=30000        # Check every 30 seconds
-```
+**Browser/Tab Close:**
 
-**Configuration Options:**
+When you close the browser tab or window, the session is immediately terminated - no waiting for timeouts. This uses the `sendBeacon` API to reliably notify the hub during page unload.
 
-- `enabled` - Enable or disable idle session detection (default: `true`)
-- `idleTimeoutMs` - Maximum idle time before session termination in milliseconds (default: `300000` = 5 minutes)
-- `checkIntervalMs` - How often to check for idle sessions in milliseconds (default: `60000` = 60 seconds)
+**Safety Net:**
+
+If the browser crashes or loses network connectivity, the hub has an orphaned session cleanup process that will automatically terminate sessions that haven't received heartbeats for 5 minutes.
+
+**Default Timeouts:**
+
+| Setting | Default | Description |
+| :------ | :------ | :---------- |
+| Idle timeout | 5 minutes | Time before warning appears |
+| Warning countdown | 30 seconds | Time to click "Continue Session" |
+| Heartbeat interval | 30 seconds | How often activity is reported |
+| Orphan cleanup | 5 minutes | Hub safety net for crashed browsers |
 
 **What Sessions Are Affected?**
 

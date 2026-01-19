@@ -279,3 +279,46 @@ Controls WebRTC connections for manual device sessions, including browser discon
 | :------------------------- | :------ | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `browserDisconnectTimeout` | number  | `30000` | Grace period in milliseconds before terminating session after browser disconnect (default: 30 seconds). During this period, users can reconnect to their session without losing their work.  |
 | `allowSessionReconnection` | boolean | `true`  | Whether to allow session reconnection within grace period (default: `true`). Set to `false` to immediately terminate sessions on browser disconnect instead of waiting for the grace period. |
+
+## Session Idle Timeout
+
+Controls automatic termination of idle manual sessions to free up devices for other users.
+
+**Why It's Needed:**
+
+Manual sessions (live device control via the web UI) can be left open accidentally when users:
+
+- Close their browser without properly ending the session
+- Walk away from their desk and forget to release the device
+- Lose network connectivity without the browser being able to send a disconnect signal
+
+Without idle timeout:
+
+- Devices would remain locked indefinitely
+- Other users wouldn't be able to access those devices
+- Resources would be wasted on abandoned sessions
+
+**How It Works:**
+
+1. **Activity Tracking**: The frontend tracks user activity (mouse, keyboard, touch, scroll)
+2. **Heartbeat**: Every 30 seconds, the frontend sends a heartbeat to the hub
+3. **Warning**: 30 seconds before timeout, a warning popup appears with a countdown
+4. **Termination**: If no activity, the session is automatically terminated
+5. **Backend Safety Net**: The hub also monitors heartbeats and terminates orphaned sessions
+
+**Current Settings:**
+
+| Component | Setting | Value | Description |
+| :-------- | :------ | :---- | :---------- |
+| Frontend | `idleTimeoutMs` | `300000` (5 min) | Time of inactivity before session termination |
+| Frontend | Warning popup | 4 min 30 sec | Warning appears 30 seconds before timeout |
+| Backend | `orphanedThresholdMs` | `300000` (5 min) | Backend safety net for missed heartbeats |
+| Backend | `checkIntervalMs` | `60000` (60 sec) | How often backend checks for orphaned sessions |
+
+**User Experience:**
+
+1. User is inactive for **4 minutes 30 seconds** → Warning popup appears with 30-second countdown
+2. User clicks "Continue Session" → Timer resets, session continues
+3. User doesn't respond within 30 seconds → Session is terminated, user is redirected to home
+
+**Note:** This idle timeout only applies to **manual sessions** (live device control). Automation sessions use Appium's `newCommandTimeout` capability instead, which defaults to 60 seconds but can be configured per-session.
