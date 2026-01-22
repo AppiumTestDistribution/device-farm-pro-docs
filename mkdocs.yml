@@ -59,6 +59,7 @@ nav:
     - Hub Setup: hub-setup.md
     - Node Setup: node-setup.md
     - Test Integration: test-integration.md
+  - Cloud Execution: cloud.md
   - Configuration:
     - Hub Configuration: hub-configuration.md
     - Node Configuration: node-configuration.md
