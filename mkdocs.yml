@@ -33,6 +33,7 @@ markdown_extensions:
   - attr_list
   - admonition
   - md_in_html
+  - pymdownx.details
   - pymdownx.tabbed:
       alternate_style: true
   - pymdownx.superfences:
@@ -69,6 +70,13 @@ nav:
     - Automation Authentication: automation-authentication.md
     - Device Management: device-management.md
     - Best Practices: authentication-best-practices.md
+  - Traceability:
+    - Quick Start: traceability/quick-start.md
+    - Distributed Setup: traceability/distributed-setup.md
+    - Grafana Dashboard: traceability/grafana-dashboard.md
+    - Usage Guide: traceability/usage.md
+    - Scripts Reference: traceability/scripts-reference.md
+    - Troubleshooting: traceability/troubleshooting.md
   - troubleshooting.md
   - capabilities.md
   - architecture.md
