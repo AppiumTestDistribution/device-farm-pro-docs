@@ -77,6 +77,11 @@ nav:
     - Usage Guide: traceability/usage.md
     - Scripts Reference: traceability/scripts-reference.md
     - Troubleshooting: traceability/troubleshooting.md
+  - Integrations:
+    - Overview: integrations/overview.md
+    - Slack Setup: integrations/slack-setup.md
+    - Email Setup: integrations/email-setup.md
+    - Scheduled Reports: integrations/scheduled-reports.md
   - troubleshooting.md
   - capabilities.md
   - architecture.md
